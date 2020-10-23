@@ -60,10 +60,11 @@ nyg <- data %>%
     total_targets = n()) %>%
   ungroup() %>%
   mutate(player_pos = case_when(
-                      receiver_player_name %in% c("C.Board","S.Shepard","D.Ratley","D.Slayton","G.Tate") ~ "WR",
-                      receiver_player_name %in% c("D.Lewis","S.Barkley","W.Gallman") ~ "RB",
-                      receiver_player_name %in% c("E.Engram","K.Smith","L.Toilolo") ~ "TE"),
-        player_pos = factor(player_pos, levels = c("WR","RB","TE"))
+                      receiver_player_name %in% c("C.Board","S.Shepard","D.Ratley","D.Slayton","G.Tate","A.Mack") ~ "WR",
+                      receiver_player_name %in% c("D.Lewis","S.Barkley","W.Gallman","D.Freeman") ~ "RB",
+                      receiver_player_name %in% c("E.Engram","K.Smith","L.Toilolo") ~ "TE",
+                      receiver_player_name %in% c("A.Thomas") ~ "OT"),
+        player_pos = factor(player_pos, levels = c("WR","RB","TE","OT"))
   )
 
 ###################################################
@@ -76,8 +77,8 @@ nyg %>%
   #add names using ggrepel, which tries to make them not overlap
   geom_text_repel(aes(label = receiver_player_name)) +
   # adjust axes
-  scale_y_continuous(limit = c(-12,6), breaks = scales::pretty_breaks(n = 5)) +
-  scale_x_continuous(limit = c(0,20), breaks = scales::pretty_breaks(n = 5)) +  
+  scale_y_continuous(limit = c(-15,10), breaks = scales::pretty_breaks(n = 5)) +
+  scale_x_continuous(limit = c(0,50), breaks = scales::pretty_breaks(n = 5)) +  
   # adjust scale names
   guides(col = guide_legend("Player Position"),
          size = guide_legend("Total Yards Gained")) +
